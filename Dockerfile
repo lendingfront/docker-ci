@@ -1,11 +1,8 @@
-FROM debian:stable-slim
+FROM python
 
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    python3-pip \
-    python3 && \
-    pip install pre-commit \
+    git
+RUN pip install pre-commit \
     && mkdir /pre-commit && \
     cd /pre-commit && \
     git init . && \
