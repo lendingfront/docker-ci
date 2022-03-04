@@ -14,7 +14,7 @@ RUN cd /usr/src && \
 RUN python3.6 -m ensurepip --upgrade && \
     pip3.6 install -U wheel && \
     pip3.6 install --upgrade pip
-RUN pip3.6 install --default-timeout=100 black==21.7b0
+RUN pip3.6 install --default-timeout=100 yamllint
 
 CMD cd /src && \
-    black --diff --check ${FILES}
+    yamllint -c .yamllint/yaml-default-config.yaml ${FILES}

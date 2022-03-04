@@ -1,8 +1,9 @@
 FROM ubuntu:14.04
 
 RUN apt-get update
-RUN apt-get install build-essential checkinstall libxml2-dev libxslt-dev -y
-RUN apt-get install wget libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev -y
+RUN apt-get install build-essential checkinstall libxml2-dev libxslt-dev \
+    wget libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev \
+    tk-dev libgdbm-dev libc6-dev libbz2-dev libpq-dev python-dev -y
 RUN cd /usr/src && \
     wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz && \
     tar xzf Python-2.7.18.tgz && \
@@ -18,4 +19,4 @@ RUN mkdir /log /log/cp /log/dcs /log/dms /log/ds /log/lp /log/lsp /log/ns /log/o
 
 CMD cd app/${SRC} && \
     pip2.7 install -r ${REQUIREMENTS} && \
-    nose2 -s test/ -v -c unittest.cfg  --fail-fast
+    nosetests
