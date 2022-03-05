@@ -14,22 +14,9 @@ RUN cd /usr/src && \
 RUN python3.6 -m ensurepip --upgrade && \
     pip3.6 install -U wheel && \
     pip3.6 install --upgrade pip
-RUN mkdir /log \
-    /log/cp \
-    /log/dcs \
-    /log/dms \
-    /log/ds \
-    /log/lp \
-    /log/lsp \
-    /log/ns \
-    /log/os \
-    /log/pp \
-    /log/ps \
-    /log/rs \
-    /log/us \
-    /log/camp/ \
-    /reports_downloads
 
-CMD cd app/${SRC} && \
-    pip3.6 install -r ${REQUIREMENTS} && \
-    nose2 -s test/ -v -c unittest.cfg  --fail-fast
+CMD pip3.6 install -r ${REQUIREMENTS} && \
+    python3.6 /app/${SRC_PATH}/scripts/run_pylint.py \
+    --fail-under=10 \
+    --path=/app/${SRC_PATH} \
+    --rcfile=/app/${SRC_PATH}/.pylintrc

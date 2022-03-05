@@ -14,22 +14,7 @@ RUN cd /usr/src && \
 RUN python3.6 -m ensurepip --upgrade && \
     pip3.6 install -U wheel && \
     pip3.6 install --upgrade pip
-RUN mkdir /log \
-    /log/cp \
-    /log/dcs \
-    /log/dms \
-    /log/ds \
-    /log/lp \
-    /log/lsp \
-    /log/ns \
-    /log/os \
-    /log/pp \
-    /log/ps \
-    /log/rs \
-    /log/us \
-    /log/camp/ \
-    /reports_downloads
 
-CMD cd app/${SRC} && \
+CMD cd /src && \
     pip3.6 install -r ${REQUIREMENTS} && \
-    nose2 -s test/ -v -c unittest.cfg  --fail-fast
+    mypy --namespace-packages --explicit-package-bases ${FILES}
