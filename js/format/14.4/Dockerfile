@@ -1,5 +1,7 @@
 FROM node:14.4.0-slim
 
+ENV FORCE_COLOR true
+
 RUN apt-get update
 
 CMD cd /source${PROJECT_PATH} && \

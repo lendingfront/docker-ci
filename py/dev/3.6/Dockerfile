@@ -1,7 +1,5 @@
 FROM ubuntu:14.04
 
-ENV FORCE_COLOR true
-
 RUN apt-get update
 RUN apt-get install build-essential checkinstall libxml2-dev libxslt-dev \
     wget libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev \
@@ -15,8 +13,4 @@ RUN cd /usr/src && \
     rm -rf /usr/src/Python-3.6.14*
 RUN python3.6 -m ensurepip --upgrade && \
     pip3.6 install -U wheel && \
-    pip3.6 install --upgrade pip
-RUN pip3.6 install --default-timeout=100 black==21.7b0
-
-CMD cd /src && \
-    black --diff --check ${FILES}
+    pip3.6 install --upgrade pip \

@@ -1,11 +1,12 @@
 FROM ubuntu:14.04
 
-ENV FORCE_COLOR true
+ENV LC_ALL "en_US.UTF-8"
+ENV LANG "en_US.UTF-8"
 
 RUN apt-get update
 RUN apt-get install build-essential checkinstall libxml2-dev libxslt-dev \
     wget libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev \
-    tk-dev libgdbm-dev libc6-dev libbz2-dev -y
+    tk-dev libgdbm-dev libc6-dev libbz2-dev libpq-dev python-dev -y
 RUN cd /usr/src && \
     wget https://www.python.org/ftp/python/3.6.14/Python-3.6.14.tgz && \
     tar xzf Python-3.6.14.tgz && \
@@ -16,7 +17,21 @@ RUN cd /usr/src && \
 RUN python3.6 -m ensurepip --upgrade && \
     pip3.6 install -U wheel && \
     pip3.6 install --upgrade pip
-RUN pip3.6 install --default-timeout=100 black==21.7b0
+RUN mkdir /log \
+    /log/cp \
+    /log/dcs \
+    /log/dms \
+    /log/ds \
+    /log/lp \
+    /log/lsp \
+    /log/ns \
+    /log/os \
+    /log/pp \
+    /log/ps \
+    /log/rs \
+    /log/us
 
-CMD cd /src && \
-    black --diff --check ${FILES}
+CMD cd app/${SRC} && \
+    pip3.6 install -r ${REQUIREMENTS} && \
+    nosetests \
+        ${EXTRA_PARAMS}

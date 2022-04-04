@@ -1,5 +1,8 @@
 FROM ubuntu:14.04
 
+ENV FORCE_COLOR true
+ENV MYPY_FORCE_COLOR 1
+
 RUN apt-get update
 RUN apt-get install build-essential checkinstall libxml2-dev libxslt-dev \
     wget libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev \
